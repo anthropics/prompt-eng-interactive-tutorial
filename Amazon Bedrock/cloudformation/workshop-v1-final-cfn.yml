@@ -7,7 +7,7 @@ Parameters:
     Default: 'PromptEngWithAnthropicNotebook'
   DefaultRepoUrl:
     Type: String
-    Default: 'https://github.com/anthropics/anthropic-cookbook.git'
+    Default: 'https://github.com/anthropics/prompt-eng-interactive-tutorial.git'
 
 Resources:
   SageMakerExecutionRole:
