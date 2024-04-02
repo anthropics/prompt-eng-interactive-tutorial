@@ -52,5 +52,5 @@ Each chapter consists of a lesson and a set of exercises.
 
 - **Appendix:** Beyond Standard Prompting
   - Chaining Prompts
-  - Function Calling
+  - Tool Use
   - Search & Retrieval
