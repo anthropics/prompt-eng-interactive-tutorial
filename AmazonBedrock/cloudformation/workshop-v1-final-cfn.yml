@@ -1,0 +1,67 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'CloudFormation template to create a Jupyter notebook in SageMaker with an execution role and Anthropic Prompt Eng. Repo'
+
+Parameters:
+  NotebookName:
+    Type: String
+    Default: 'PromptEngWithAnthropicNotebook'
+  DefaultRepoUrl:
+    Type: String
+    Default: 'https://github.com/aws-samples/prompt-engineering-with-anthropic-claude-v-3.git'
+
+Resources:
+  SageMakerExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - sagemaker.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
+        - arn:aws:iam::aws:policy/AmazonBedrockFullAccess
+
+  KmsKey:
+    Type: AWS::KMS::Key
+    Properties:
+      Description: 'KMS key for SageMaker notebook'
+      KeyPolicy:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+            Action: 'kms:*'
+            Resource: '*'
+      EnableKeyRotation: true
+
+  KmsKeyAlias:
+    Type: AWS::KMS::Alias
+    Properties:
+      AliasName: !Sub 'alias/${NotebookName}-kms-key'
+      TargetKeyId: !Ref KmsKey
+
+  SageMakerNotebookInstance:
+    Type: AWS::SageMaker::NotebookInstance
+    Properties:
+      InstanceType: ml.t3.large
+      NotebookInstanceName: !Ref NotebookName
+      RoleArn: !GetAtt SageMakerExecutionRole.Arn
+      DefaultCodeRepository: !Ref DefaultRepoUrl
+      KmsKeyId: !GetAtt KmsKey.Arn
+
+Outputs:
+  NotebookInstanceName:
+    Description: The name of the created SageMaker Notebook Instance
+    Value: !Ref SageMakerNotebookInstance
+  ExecutionRoleArn:
+    Description: The ARN of the created SageMaker Execution Role
+    Value: !GetAtt SageMakerExecutionRole.Arn
+  KmsKeyArn:
+    Description: The ARN of the created KMS Key for the notebook
+    Value: !GetAtt KmsKey.Arn
