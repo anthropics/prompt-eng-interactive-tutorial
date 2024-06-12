@@ -1,5 +1,12 @@
-awscli==1.32.74
-boto3==1.34.74
-botocore==1.34.74
-anthropic==0.21.3
+python-dotenv==1.0.1
+wikipedia==1.4.0
+awscli==1.33.4
+boto3==1.34.122
+botocore==1.34.122
+console==0.9907
+panel==1.4.3
 pickleshare==0.7.5
+ipython==8.25.0
+pandas==1.5.3
+jedi===0.17.2
+mkl==2024.1.0
