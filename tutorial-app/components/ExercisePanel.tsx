@@ -110,8 +110,8 @@ export default function ExercisePanel({
   return (
     <div className={`rounded-lg border transition-all duration-200 ${
       passed
-        ? 'border-teal-700 bg-teal-950/20'
-        : 'border-zinc-700 bg-zinc-900'
+        ? 'border-teak-400 bg-teak-50'
+        : 'border-stone-200 bg-white'
     }`}>
       {xpToast && (
         <XPToast
@@ -127,36 +127,36 @@ export default function ExercisePanel({
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
               <span className={`w-5 h-5 rounded flex items-center justify-center text-xs font-semibold flex-shrink-0 ${
-                passed ? 'bg-teal-600 text-white' : 'bg-zinc-700 text-zinc-400'
+                passed ? 'bg-teak-600 text-white' : 'bg-stone-100 text-stone-400'
               }`}>
                 {passed ? '✓' : '·'}
               </span>
-              <h3 className="font-semibold text-white text-base">{exercise.title}</h3>
+              <h3 className="font-semibold text-stone-900 text-base">{exercise.title}</h3>
             </div>
-            <p className="text-zinc-400 text-sm ml-7">{exercise.description}</p>
+            <p className="text-stone-500 text-sm ml-7">{exercise.description}</p>
           </div>
           <div className="text-right ml-4 flex-shrink-0">
-            <div className="text-teal-400 font-medium text-sm">{exercise.xpReward} XP</div>
-            {previousXP && <div className="text-teal-600 text-xs">Earned: {previousXP}</div>}
+            <div className="text-teak-600 font-medium text-sm">{exercise.xpReward} XP</div>
+            {previousXP && <div className="text-teak-500 text-xs">Earned: {previousXP}</div>}
           </div>
         </div>
 
         {/* Instructions */}
-        <div className="border border-zinc-700 bg-zinc-800/50 rounded-md p-4 mb-4">
-          <div className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-1.5">Task</div>
-          <div className="text-sm text-zinc-300 whitespace-pre-wrap leading-relaxed">{exercise.instruction}</div>
+        <div className="border border-stone-200 bg-stone-50 rounded-md p-4 mb-4">
+          <div className="text-xs font-semibold text-stone-400 uppercase tracking-wider mb-1.5">Task</div>
+          <div className="text-sm text-stone-700 whitespace-pre-wrap leading-relaxed">{exercise.instruction}</div>
         </div>
 
         {/* Test Variables */}
         {variables && (
-          <div className="border border-zinc-700 bg-zinc-800/30 rounded-md p-3 mb-4">
-            <div className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Test Variables</div>
+          <div className="border border-stone-200 bg-stone-50 rounded-md p-3 mb-4">
+            <div className="text-xs font-semibold text-stone-400 uppercase tracking-wider mb-2">Test Variables</div>
             <div className="flex flex-wrap gap-2">
               {Object.entries(variables).map(([key, val]) => (
-                <div key={key} className="bg-zinc-800 border border-zinc-700 rounded px-2.5 py-1 text-xs">
-                  <span className="text-teal-400 font-mono">{'{' + key + '}'}</span>
-                  <span className="text-zinc-500"> = </span>
-                  <span className="text-zinc-300 font-mono">&quot;{typeof val === 'string' && val.length > 40 ? val.slice(0, 40) + '…' : val}&quot;</span>
+                <div key={key} className="bg-white border border-stone-200 rounded px-2.5 py-1 text-xs">
+                  <span className="text-teak-600 font-mono">{'{' + key + '}'}</span>
+                  <span className="text-stone-400"> = </span>
+                  <span className="text-stone-700 font-mono">&quot;{typeof val === 'string' && val.length > 40 ? val.slice(0, 40) + '…' : val}&quot;</span>
                 </div>
               ))}
             </div>
@@ -167,40 +167,40 @@ export default function ExercisePanel({
         <div className="space-y-3 mb-4">
           {exercise.hasSystemPrompt && (
             <div>
-              <label className="block text-xs font-semibold text-zinc-500 mb-1 uppercase tracking-wider">
+              <label className="block text-xs font-semibold text-stone-400 mb-1 uppercase tracking-wider">
                 System Prompt
               </label>
               <textarea
                 value={systemPrompt}
                 onChange={(e) => setSystemPrompt(e.target.value)}
                 placeholder={exercise.systemPlaceholder || 'Enter system prompt...'}
-                className="w-full h-20 px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-md text-sm font-mono text-zinc-200 resize-y focus:outline-none focus:ring-1 focus:ring-teal-500 focus:border-teal-500 placeholder-zinc-600"
+                className="w-full h-20 px-3 py-2 bg-white border border-stone-300 rounded-md text-sm font-mono text-stone-800 resize-y focus:outline-none focus:ring-1 focus:ring-teak-400 focus:border-teak-400 placeholder-stone-400"
               />
             </div>
           )}
 
           <div>
-            <label className="block text-xs font-semibold text-zinc-500 mb-1 uppercase tracking-wider">
+            <label className="block text-xs font-semibold text-stone-400 mb-1 uppercase tracking-wider">
               User Prompt
             </label>
             <textarea
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder={exercise.placeholder || 'Enter your prompt...'}
-              className="w-full h-28 px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-md text-sm font-mono text-zinc-200 resize-y focus:outline-none focus:ring-1 focus:ring-teal-500 focus:border-teal-500 placeholder-zinc-600"
+              className="w-full h-28 px-3 py-2 bg-white border border-stone-300 rounded-md text-sm font-mono text-stone-800 resize-y focus:outline-none focus:ring-1 focus:ring-teak-400 focus:border-teak-400 placeholder-stone-400"
             />
           </div>
 
           {exercise.hasPrefill && (
             <div>
-              <label className="block text-xs font-semibold text-zinc-500 mb-1 uppercase tracking-wider">
+              <label className="block text-xs font-semibold text-stone-400 mb-1 uppercase tracking-wider">
                 Prefill
               </label>
               <textarea
                 value={prefill}
                 onChange={(e) => setPrefill(e.target.value)}
                 placeholder={exercise.prefillPlaceholder || 'Prefill text...'}
-                className="w-full h-16 px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-md text-sm font-mono text-zinc-200 resize-y focus:outline-none focus:ring-1 focus:ring-teal-500 focus:border-teal-500 placeholder-zinc-600"
+                className="w-full h-16 px-3 py-2 bg-white border border-stone-300 rounded-md text-sm font-mono text-stone-800 resize-y focus:outline-none focus:ring-1 focus:ring-teak-400 focus:border-teak-400 placeholder-stone-400"
               />
             </div>
           )}
@@ -211,7 +211,7 @@ export default function ExercisePanel({
           <button
             onClick={handleRun}
             disabled={loading || !prompt.trim()}
-            className="flex-1 py-2.5 bg-teal-700 hover:bg-teal-600 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-md font-medium text-sm transition-colors"
+            className="flex-1 py-2.5 bg-teak-700 hover:bg-teak-600 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-md font-medium text-sm transition-colors"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">
@@ -229,7 +229,7 @@ export default function ExercisePanel({
           {!showHint && !passed && (
             <button
               onClick={handleShowHint}
-              className="px-4 py-2.5 border border-zinc-700 text-zinc-400 hover:text-zinc-300 hover:border-zinc-600 rounded-md font-medium text-sm transition-colors"
+              className="px-4 py-2.5 border border-stone-300 text-stone-500 hover:text-stone-700 hover:border-stone-400 rounded-md font-medium text-sm transition-colors"
             >
               Hint &minus;30% XP
             </button>
@@ -238,17 +238,17 @@ export default function ExercisePanel({
 
         {/* Hint */}
         {showHint && (
-          <div className="border border-zinc-700 bg-zinc-800/50 rounded-md p-4 mb-4">
-            <div className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-1.5">Hint</div>
-            <div className="text-sm text-zinc-300">{exercise.hint}</div>
+          <div className="border border-teak-200 bg-teak-50 rounded-md p-4 mb-4">
+            <div className="text-xs font-semibold text-teak-600 uppercase tracking-wider mb-1.5">Hint</div>
+            <div className="text-sm text-stone-700">{exercise.hint}</div>
           </div>
         )}
 
         {/* Error */}
         {error && (
-          <div className="border border-red-800/50 bg-red-950/30 rounded-md p-3 mb-4">
-            <div className="text-xs font-semibold text-red-400 uppercase tracking-wider mb-1">Error</div>
-            <div className="text-sm text-red-300">{error}</div>
+          <div className="border border-red-200 bg-red-50 rounded-md p-3 mb-4">
+            <div className="text-xs font-semibold text-red-600 uppercase tracking-wider mb-1">Error</div>
+            <div className="text-sm text-red-700">{error}</div>
           </div>
         )}
 
@@ -256,30 +256,30 @@ export default function ExercisePanel({
         {response && (
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">
+              <label className="text-xs font-semibold text-stone-400 uppercase tracking-wider">
                 AI Response
               </label>
               <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-medium border ${
                 exercise.gradingFn(response)
-                  ? 'border-teal-700 bg-teal-950/40 text-teal-400'
-                  : 'border-red-800/50 bg-red-950/30 text-red-400'
+                  ? 'border-teak-300 bg-teak-50 text-teak-700'
+                  : 'border-red-200 bg-red-50 text-red-600'
               }`}>
                 {exercise.gradingFn(response) ? '✓ Passed' : '✗ Not quite'}
               </div>
             </div>
-            <div className="bg-zinc-950 border border-zinc-800 text-teal-300 rounded-md p-4 text-sm font-mono whitespace-pre-wrap max-h-60 overflow-y-auto leading-relaxed">
+            <div className="bg-stone-50 border border-stone-200 text-stone-800 rounded-md p-4 text-sm font-mono whitespace-pre-wrap max-h-60 overflow-y-auto leading-relaxed">
               {response}
             </div>
             {!exercise.gradingFn(response) && (
-              <div className="mt-2 text-xs text-zinc-500">
-                <span className="font-semibold text-zinc-400">Criteria:</span> {exercise.gradingDescription}
+              <div className="mt-2 text-xs text-stone-500">
+                <span className="font-semibold text-stone-600">Criteria:</span> {exercise.gradingDescription}
               </div>
             )}
           </div>
         )}
 
         {attempts > 0 && (
-          <div className="mt-3 text-xs text-zinc-600 text-right">
+          <div className="mt-3 text-xs text-stone-400 text-right">
             {attempts} attempt{attempts !== 1 ? 's' : ''}
           </div>
         )}

@@ -74,36 +74,36 @@ export default function LeaderboardPage() {
   };
 
   const getRankStyle = (rank: number) => {
-    if (rank === 1) return 'bg-gradient-to-r from-yellow-500/20 to-amber-500/20 border-yellow-400/50';
-    if (rank === 2) return 'bg-gradient-to-r from-slate-400/20 to-slate-500/20 border-slate-400/50';
-    if (rank === 3) return 'bg-gradient-to-r from-orange-700/20 to-orange-600/20 border-orange-600/50';
-    return 'bg-slate-800/50 border-slate-700';
+    if (rank === 1) return 'bg-amber-50 border-amber-300';
+    if (rank === 2) return 'bg-stone-100 border-stone-300';
+    if (rank === 3) return 'bg-orange-50 border-orange-300';
+    return 'bg-white border-stone-200';
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="bg-gradient-to-r from-slate-900 via-yellow-900/40 to-slate-900 pt-12 pb-8 px-6">
+      <div className="bg-teak-50 border-b border-teak-100 pt-12 pb-8 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <div className="text-6xl mb-4">🏆</div>
-          <h1 className="text-4xl font-black text-white mb-2">Leaderboard</h1>
-          <p className="text-white/60">Top prompt engineers ranked by XP</p>
+          <h1 className="text-4xl font-black text-stone-900 mb-2">Leaderboard</h1>
+          <p className="text-stone-500">Top prompt engineers ranked by XP</p>
 
           {progress && (
             <div className="mt-6 inline-flex flex-col items-center gap-3">
-              <div className="bg-white/10 rounded-2xl px-6 py-4">
+              <div className="bg-white border border-teak-200 rounded-xl px-6 py-4">
                 <XPBar xp={progress.totalXP} compact />
               </div>
               {!submitted ? (
                 <button
                   onClick={handleSubmitScore}
                   disabled={submitting || progress.totalXP === 0}
-                  className="px-6 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 disabled:opacity-50 text-white rounded-xl font-bold transition-all"
+                  className="px-6 py-3 bg-teak-700 hover:bg-teak-600 disabled:opacity-50 text-white rounded-md font-bold transition-colors"
                 >
                   {submitting ? 'Submitting...' : '📊 Submit My Score'}
                 </button>
               ) : (
-                <div className="text-green-400 font-bold">
+                <div className="text-teak-700 font-bold">
                   ✓ Score submitted! {myRank ? `Your rank: #${myRank}` : ''}
                 </div>
               )}
@@ -114,7 +114,7 @@ export default function LeaderboardPage() {
             <div className="mt-4">
               <Link
                 href="/"
-                className="inline-block px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-bold hover:from-purple-600 hover:to-pink-600 transition-all"
+                className="inline-block px-6 py-3 bg-teak-700 hover:bg-teak-600 text-white rounded-md font-bold transition-colors"
               >
                 Start Learning to Earn XP
               </Link>
@@ -126,18 +126,18 @@ export default function LeaderboardPage() {
       {/* Leaderboard Table */}
       <div className="max-w-3xl mx-auto px-6 py-8">
         {loading ? (
-          <div className="text-center py-16 text-white/50">
+          <div className="text-center py-16 text-stone-400">
             <div className="animate-spin text-4xl mb-4">⚙️</div>
             Loading leaderboard...
           </div>
         ) : entries.length === 0 ? (
-          <div className="text-center py-16 text-white/50">
+          <div className="text-center py-16 text-stone-400">
             <div className="text-4xl mb-4">🌱</div>
-            <div className="text-xl font-bold text-white/70">No scores yet!</div>
+            <div className="text-xl font-bold text-stone-600">No scores yet!</div>
             <p className="mt-2">Be the first to submit your score.</p>
             <Link
               href="/tutorial"
-              className="inline-block mt-4 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold transition-colors"
+              className="inline-block mt-4 px-6 py-3 bg-teak-700 hover:bg-teak-600 text-white rounded-md font-bold transition-colors"
             >
               Start Learning
             </Link>
@@ -151,12 +151,12 @@ export default function LeaderboardPage() {
               return (
                 <div
                   key={entry.username}
-                  className={`flex items-center gap-4 rounded-2xl border-2 p-4 transition-all ${
+                  className={`flex items-center gap-4 rounded-xl border-2 p-4 transition-all ${
                     getRankStyle(entry.rank)
-                  } ${isMe ? 'ring-2 ring-purple-400 ring-offset-2 ring-offset-slate-900' : ''}`}
+                  } ${isMe ? 'ring-2 ring-teak-500 ring-offset-2 ring-offset-white' : ''}`}
                 >
                   {/* Rank */}
-                  <div className="w-12 text-center text-2xl font-black text-white">
+                  <div className="w-12 text-center text-2xl font-black text-stone-900">
                     {getRankDisplay(entry.rank)}
                   </div>
 
@@ -171,25 +171,25 @@ export default function LeaderboardPage() {
                   {/* Info */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="text-white font-bold truncate">
+                      <span className="text-stone-900 font-bold truncate">
                         {entry.username}
-                        {isMe && <span className="text-purple-400 text-xs ml-1">(you)</span>}
+                        {isMe && <span className="text-teak-600 text-xs ml-1">(you)</span>}
                       </span>
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-stone-100 text-stone-500">
                         {levelData.emoji} {levelData.name}
                       </span>
                     </div>
-                    <div className="text-white/40 text-xs mt-0.5">
+                    <div className="text-stone-400 text-xs mt-0.5">
                       {entry.completedChapters} chapters complete
                     </div>
                   </div>
 
                   {/* XP */}
                   <div className="text-right">
-                    <div className="text-yellow-400 font-black text-lg">
+                    <div className="text-teak-700 font-black text-lg">
                       {entry.totalXP.toLocaleString()}
                     </div>
-                    <div className="text-white/40 text-xs">XP</div>
+                    <div className="text-stone-400 text-xs">XP</div>
                   </div>
                 </div>
               );
@@ -200,7 +200,7 @@ export default function LeaderboardPage() {
         <div className="mt-8 text-center">
           <button
             onClick={loadLeaderboard}
-            className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white/70 rounded-lg text-sm transition-colors"
+            className="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-500 rounded-lg text-sm transition-colors"
           >
             ↺ Refresh
           </button>

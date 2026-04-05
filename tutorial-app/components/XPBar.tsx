@@ -17,15 +17,15 @@ export default function XPBar({ xp, compact = false }: XPBarProps) {
       <div className="flex items-center gap-2">
         <span className="text-lg">{level.emoji}</span>
         <div>
-          <div className="text-xs font-bold text-white/90">{level.name}</div>
+          <div className="text-xs font-bold text-stone-900">{level.name}</div>
           <div className="flex items-center gap-1">
-            <div className="w-24 h-1.5 bg-white/20 rounded-full overflow-hidden">
+            <div className="w-24 h-1.5 bg-stone-200 rounded-full overflow-hidden">
               <div
                 className="h-full rounded-full transition-all duration-500"
                 style={{ width: `${progress}%`, backgroundColor: level.color }}
               />
             </div>
-            <span className="text-xs text-white/70">{xp} XP</span>
+            <span className="text-xs text-stone-500">{xp} XP</span>
           </div>
         </div>
       </div>
@@ -33,23 +33,23 @@ export default function XPBar({ xp, compact = false }: XPBarProps) {
   }
 
   return (
-    <div className="bg-white/10 backdrop-blur rounded-xl p-4">
+    <div className="bg-teak-50 border border-teak-100 rounded-xl p-4">
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
           <span className="text-2xl">{level.emoji}</span>
           <div>
-            <div className="font-bold text-white">{level.name}</div>
-            <div className="text-white/70 text-sm">{xp} XP total</div>
+            <div className="font-bold text-stone-900">{level.name}</div>
+            <div className="text-stone-500 text-sm">{xp} XP total</div>
           </div>
         </div>
         {nextLevel && (
-          <div className="text-right text-sm text-white/70">
+          <div className="text-right text-sm text-stone-500">
             <div>{nextLevel.name} at {nextLevel.minXP} XP</div>
             <div>{nextLevel.minXP - xp} XP to go</div>
           </div>
         )}
       </div>
-      <div className="w-full h-3 bg-white/20 rounded-full overflow-hidden">
+      <div className="w-full h-3 bg-stone-200 rounded-full overflow-hidden">
         <div
           className="h-full rounded-full transition-all duration-700"
           style={{ width: `${progress}%`, backgroundColor: level.color }}
@@ -59,7 +59,7 @@ export default function XPBar({ xp, compact = false }: XPBarProps) {
         {LEVELS.map((l) => (
           <div
             key={l.name}
-            className={`text-xs ${xp >= l.minXP ? 'text-white' : 'text-white/30'}`}
+            className={`text-xs ${xp >= l.minXP ? 'text-stone-700' : 'text-stone-300'}`}
           >
             {l.emoji}
           </div>

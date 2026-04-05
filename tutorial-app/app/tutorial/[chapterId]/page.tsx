@@ -28,11 +28,11 @@ export default function ChapterPage({ params }: PageProps) {
 
   if (!chapter) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-white">
         <div className="text-center">
           <div className="text-6xl mb-4">🔍</div>
-          <div className="text-2xl font-bold text-slate-800">Chapter not found</div>
-          <Link href="/tutorial" className="text-purple-600 mt-4 inline-block">← Back to chapters</Link>
+          <div className="text-2xl font-bold text-stone-900">Chapter not found</div>
+          <Link href="/tutorial" className="text-teak-600 mt-4 inline-block">← Back to chapters</Link>
         </div>
       </div>
     );
@@ -78,7 +78,7 @@ export default function ChapterPage({ params }: PageProps) {
   );
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-white">
       {chapterBonusToast && (
         <XPToast
           xp={chapterBonusToast.xp}
@@ -88,45 +88,40 @@ export default function ChapterPage({ params }: PageProps) {
       )}
 
       {/* Chapter header */}
-      <div
-        className="text-white py-12 px-6"
-        style={{
-          background: `linear-gradient(135deg, ${chapter.color}dd 0%, ${chapter.color}99 100%)`,
-        }}
-      >
+      <div className="bg-teak-700 text-white py-12 px-6">
         <div className="max-w-4xl mx-auto">
           <Link
             href="/tutorial"
-            className="text-white/70 hover:text-white text-sm mb-4 inline-flex items-center gap-1 transition-colors"
+            className="text-teak-200 hover:text-white text-sm mb-4 inline-flex items-center gap-1 transition-colors"
           >
             ← Back to chapters
           </Link>
           <div className="flex items-center gap-4 mt-2">
             <span className="text-5xl">{chapter.icon}</span>
             <div>
-              <div className="text-white/60 text-sm font-mono mb-1">
+              <div className="text-teak-300 text-sm font-mono mb-1">
                 Chapter {chapter.number} • {chapter.difficulty}
               </div>
               <h1 className="text-3xl font-black">{chapter.title}</h1>
-              <p className="text-white/80 mt-1">{chapter.subtitle}</p>
+              <p className="text-teak-200 mt-1">{chapter.subtitle}</p>
             </div>
           </div>
 
           {/* Progress */}
           <div className="mt-6 flex items-center gap-4">
             <div className="flex-1 max-w-xs">
-              <div className="flex justify-between text-xs text-white/60 mb-1">
+              <div className="flex justify-between text-xs text-teak-300 mb-1">
                 <span>Progress</span>
                 <span>{completedExercises}/{chapter.exercises.length} exercises</span>
               </div>
-              <div className="h-2 bg-white/20 rounded-full">
+              <div className="h-2 bg-teak-800 rounded-full">
                 <div
                   className="h-full bg-white rounded-full transition-all duration-500"
                   style={{ width: `${chapter.exercises.length ? (completedExercises / chapter.exercises.length) * 100 : 0}%` }}
                 />
               </div>
             </div>
-            <div className="text-yellow-300 font-bold text-sm">
+            <div className="text-teak-200 font-bold text-sm">
               ⚡ {chapter.exercises.reduce((s, ex) => s + ex.xpReward, 0) + chapter.xpBonus} XP available
             </div>
           </div>
@@ -134,7 +129,7 @@ export default function ChapterPage({ params }: PageProps) {
       </div>
 
       {/* Tab navigation */}
-      <div className="bg-white border-b border-slate-200 sticky top-16 z-30">
+      <div className="bg-white border-b border-stone-200 sticky top-16 z-30">
         <div className="max-w-4xl mx-auto px-6 flex">
           {['lesson', 'exercises'].map((tab) => (
             <button
@@ -142,8 +137,8 @@ export default function ChapterPage({ params }: PageProps) {
               onClick={() => setActiveTab(tab as 'lesson' | 'exercises')}
               className={`px-6 py-4 font-semibold text-sm border-b-2 transition-colors capitalize ${
                 activeTab === tab
-                  ? 'border-purple-600 text-purple-600'
-                  : 'border-transparent text-slate-500 hover:text-slate-700'
+                  ? 'border-teak-600 text-teak-700'
+                  : 'border-transparent text-stone-500 hover:text-stone-700'
               }`}
             >
               {tab === 'lesson' ? '📖 Lesson' : `⚡ Exercises (${completedExercises}/${chapter.exercises.length})`}
@@ -156,7 +151,7 @@ export default function ChapterPage({ params }: PageProps) {
         {/* Lesson Content */}
         {activeTab === 'lesson' && (
           <div>
-            <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 mb-6">
+            <div className="bg-white rounded-xl p-8 border border-stone-200 mb-6">
               <div className="lesson-content">
                 <ReactMarkdown>{chapter.lessonContent}</ReactMarkdown>
               </div>
@@ -165,8 +160,7 @@ export default function ChapterPage({ params }: PageProps) {
             <div className="text-center">
               <button
                 onClick={() => setActiveTab('exercises')}
-                className="px-8 py-4 text-white rounded-2xl font-bold text-lg transition-all shadow-lg"
-                style={{ backgroundColor: chapter.color }}
+                className="px-8 py-4 bg-teak-600 hover:bg-teak-500 text-white rounded-xl font-bold text-lg transition-colors"
               >
                 Start Exercises ⚡
               </button>
@@ -190,24 +184,24 @@ export default function ChapterPage({ params }: PageProps) {
 
             {/* Chapter Complete */}
             {allComplete && (
-              <div className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl p-8 text-white text-center">
+              <div className="bg-teak-700 rounded-2xl p-8 text-white text-center">
                 <div className="text-5xl mb-3">🎉</div>
                 <h3 className="text-2xl font-black mb-2">Chapter Complete!</h3>
-                <p className="text-white/80 mb-6">
-                  You've mastered {chapter.title}. Keep going!
+                <p className="text-teak-200 mb-6">
+                  You&apos;ve mastered {chapter.title}. Keep going!
                 </p>
                 <div className="flex gap-3 justify-center flex-wrap">
                   {nextChapter ? (
                     <Link
                       href={`/tutorial/${nextChapter.id}`}
-                      className="px-6 py-3 bg-white text-green-700 rounded-xl font-bold hover:bg-green-50 transition-colors"
+                      className="px-6 py-3 bg-white text-teak-800 rounded-xl font-bold hover:bg-teak-50 transition-colors"
                     >
                       Next: {nextChapter.title} →
                     </Link>
                   ) : (
                     <Link
                       href="/certificate"
-                      className="px-6 py-3 bg-white text-green-700 rounded-xl font-bold hover:bg-green-50 transition-colors"
+                      className="px-6 py-3 bg-white text-teak-800 rounded-xl font-bold hover:bg-teak-50 transition-colors"
                     >
                       Get Certificate 📜
                     </Link>

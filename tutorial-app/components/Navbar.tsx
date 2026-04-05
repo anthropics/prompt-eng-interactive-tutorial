@@ -28,31 +28,31 @@ export default function Navbar() {
     <>
       {showApiKey && <ApiKeyModal onClose={() => setShowApiKey(false)} />}
 
-      <nav className="fixed top-0 left-0 right-0 z-40 bg-zinc-950 border-b border-zinc-800">
+      <nav className="fixed top-0 left-0 right-0 z-40 bg-white border-b border-stone-200">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <div className="w-7 h-7 bg-teal-500 rounded flex items-center justify-center flex-shrink-0">
+            <div className="w-7 h-7 bg-teak-600 rounded flex items-center justify-center flex-shrink-0">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-white">
                 <path d="M3 3h4v4H3zM9 3h4v4H9zM3 9h4v4H3zM9 9h4v4H9z" fill="currentColor" opacity="0.7"/>
                 <rect x="6" y="6" width="4" height="4" fill="currentColor"/>
               </svg>
             </div>
             <div className="flex items-center gap-1">
-              <span className="text-white font-semibold text-base tracking-tight">PromptCraft</span>
-              <span className="text-teal-400 font-semibold text-base tracking-tight">Academy</span>
+              <span className="text-stone-900 font-semibold text-base tracking-tight">PromptCraft</span>
+              <span className="text-teak-600 font-semibold text-base tracking-tight">Academy</span>
             </div>
           </Link>
 
           <div className="flex items-center gap-5">
             <Link
               href="/tutorial"
-              className="text-zinc-400 hover:text-white transition-colors text-sm font-medium"
+              className="text-stone-500 hover:text-stone-900 transition-colors text-sm font-medium"
             >
               Chapters
             </Link>
             <Link
               href="/leaderboard"
-              className="text-zinc-400 hover:text-white transition-colors text-sm font-medium"
+              className="text-stone-500 hover:text-stone-900 transition-colors text-sm font-medium"
             >
               Leaderboard
             </Link>
@@ -62,11 +62,11 @@ export default function Navbar() {
               title={hasKey ? `Using ${activeProvider === 'anthropic' ? 'Anthropic (Claude)' : 'Groq (Llama)'}` : 'Add API key to run exercises'}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium border transition-all ${
                 hasKey
-                  ? 'border-teal-700 bg-teal-950 text-teal-400 hover:bg-teal-900'
-                  : 'border-amber-700 bg-amber-950 text-amber-400 hover:bg-amber-900'
+                  ? 'border-teak-300 bg-teak-50 text-teak-700 hover:bg-teak-100'
+                  : 'border-amber-300 bg-amber-50 text-amber-700 hover:bg-amber-100'
               }`}
             >
-              <span className={`w-1.5 h-1.5 rounded-full ${hasKey ? 'bg-teal-400' : 'bg-amber-400'}`} />
+              <span className={`w-1.5 h-1.5 rounded-full ${hasKey ? 'bg-teak-500' : 'bg-amber-500'}`} />
               {hasKey
                 ? activeProvider === 'anthropic' ? 'Claude (Premium)' : 'Groq (Free)'
                 : 'Add Key'}
@@ -74,11 +74,11 @@ export default function Navbar() {
 
             {progress && (
               <div className="flex items-center gap-3">
-                <div className="text-zinc-500 text-xs hidden sm:block">
+                <div className="text-stone-400 text-xs hidden sm:block">
                   {completedExercises}/{totalExercises}
                 </div>
                 <XPBar xp={progress.totalXP} compact />
-                <div className="text-zinc-300 text-sm font-medium hidden sm:block">
+                <div className="text-stone-700 text-sm font-medium hidden sm:block">
                   {progress.username}
                 </div>
               </div>
@@ -87,7 +87,7 @@ export default function Navbar() {
             {!progress && (
               <Link
                 href="/"
-                className="bg-teal-600 hover:bg-teal-500 text-white px-4 py-1.5 rounded-md text-sm font-medium transition-colors"
+                className="bg-teak-600 hover:bg-teak-500 text-white px-4 py-1.5 rounded-md text-sm font-medium transition-colors"
               >
                 Start
               </Link>

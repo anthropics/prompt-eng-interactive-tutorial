@@ -8,11 +8,11 @@ import { getLevelFromXP } from '@/lib/types';
 
 function getGrade(xp: number, totalXP: number): { letter: string; label: string; color: string } {
   const pct = totalXP > 0 ? (xp / totalXP) * 100 : 0;
-  if (pct >= 90) return { letter: 'A+', label: 'Outstanding', color: '#22c55e' };
-  if (pct >= 80) return { letter: 'A', label: 'Excellent', color: '#84cc16' };
-  if (pct >= 70) return { letter: 'B', label: 'Proficient', color: '#f59e0b' };
-  if (pct >= 60) return { letter: 'C', label: 'Competent', color: '#f97316' };
-  return { letter: 'D', label: 'Beginner', color: '#ef4444' };
+  if (pct >= 90) return { letter: 'A+', label: 'Outstanding', color: '#6e4c28' };
+  if (pct >= 80) return { letter: 'A', label: 'Excellent', color: '#8c6238' };
+  if (pct >= 70) return { letter: 'B', label: 'Proficient', color: '#a87850' };
+  if (pct >= 60) return { letter: 'C', label: 'Competent', color: '#c4956a' };
+  return { letter: 'D', label: 'Beginner', color: '#d4b088' };
 }
 
 export default function CertificatePage() {
@@ -69,14 +69,14 @@ export default function CertificatePage() {
 
   if (!progress) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-900">
-        <div className="text-center text-white">
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="text-center">
           <div className="text-6xl mb-4">🔒</div>
-          <h2 className="text-2xl font-bold mb-2">No progress found</h2>
-          <p className="text-white/60 mb-4">Complete the tutorial to earn your certificate!</p>
+          <h2 className="text-2xl font-bold text-stone-900 mb-2">No progress found</h2>
+          <p className="text-stone-500 mb-4">Complete the tutorial to earn your certificate!</p>
           <Link
             href="/tutorial"
-            className="inline-block px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-xl font-bold transition-colors"
+            className="inline-block px-6 py-3 bg-teak-700 hover:bg-teak-600 text-white rounded-md font-bold transition-colors"
           >
             Start Learning
           </Link>
@@ -86,24 +86,24 @@ export default function CertificatePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 py-12 px-6">
+    <div className="min-h-screen bg-stone-50 py-12 px-6">
       <div className="max-w-4xl mx-auto">
         {/* Actions */}
         <div className="flex items-center justify-between mb-8">
-          <Link href="/tutorial" className="text-white/60 hover:text-white transition-colors text-sm">
+          <Link href="/tutorial" className="text-stone-500 hover:text-stone-900 transition-colors text-sm">
             ← Back to chapters
           </Link>
           <div className="flex gap-3">
             <Link
               href="/leaderboard"
-              className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-sm font-medium transition-colors"
+              className="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-md text-sm font-medium transition-colors"
             >
               🏆 Leaderboard
             </Link>
             <button
               onClick={handleDownload}
               disabled={downloading}
-              className="px-6 py-2 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white rounded-xl font-bold text-sm transition-all disabled:opacity-50"
+              className="px-6 py-2 bg-teak-700 hover:bg-teak-600 text-white rounded-md font-bold text-sm transition-colors disabled:opacity-50"
             >
               {downloading ? '⏳ Generating...' : '⬇ Download PNG'}
             </button>
@@ -112,13 +112,13 @@ export default function CertificatePage() {
 
         {/* Certificate */}
         <div ref={certRef}>
-          <div className="relative bg-gradient-to-br from-slate-900 via-purple-950 to-indigo-950 rounded-3xl overflow-hidden border-2 border-yellow-400/30 shadow-2xl">
+          <div className="relative bg-teak-900 rounded-3xl overflow-hidden border-2 border-teak-700 shadow-2xl">
             {/* Decorative elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              <div className="absolute -top-20 -right-20 w-80 h-80 bg-yellow-500/10 rounded-full blur-3xl" />
-              <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl" />
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent" />
+              <div className="absolute -top-20 -right-20 w-80 h-80 bg-teak-700/30 rounded-full blur-3xl" />
+              <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-teak-600/20 rounded-full blur-3xl" />
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-teak-400/60 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-teak-400/60 to-transparent" />
             </div>
 
             <div className="relative p-12 text-center">
@@ -126,16 +126,16 @@ export default function CertificatePage() {
               <div className="flex items-center justify-center gap-2 mb-6">
                 <span className="text-3xl">🧠</span>
                 <span className="text-white font-black text-2xl">PromptCraft</span>
-                <span className="text-purple-300 font-bold text-2xl">Academy</span>
+                <span className="text-teak-300 font-bold text-2xl">Academy</span>
               </div>
 
-              <div className="text-yellow-400/80 text-sm font-bold tracking-widest uppercase mb-8">
+              <div className="text-teak-300 text-sm font-bold tracking-widest uppercase mb-8">
                 Certificate of Completion
               </div>
 
               <div className="text-white/50 text-lg mb-3">This certifies that</div>
 
-              <div className="text-5xl font-black text-white mb-3 bg-gradient-to-r from-purple-300 via-white to-pink-300 bg-clip-text text-transparent">
+              <div className="text-5xl font-black text-white mb-3">
                 {progress.username}
               </div>
 
@@ -146,7 +146,7 @@ export default function CertificatePage() {
               <div className="text-3xl font-black text-white mb-2">
                 Prompt Engineering Tutorial
               </div>
-              <div className="text-purple-300 text-lg mb-10">
+              <div className="text-teak-300 text-lg mb-10">
                 Interactive Course — 9 Chapters
               </div>
 
@@ -160,21 +160,21 @@ export default function CertificatePage() {
                   <div className="text-white/70 text-xs font-medium">{grade.label}</div>
                 </div>
                 <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
-                  <div className="text-3xl font-black text-yellow-400 mb-1">
+                  <div className="text-3xl font-black text-teak-300 mb-1">
                     {xp.toLocaleString()}
                   </div>
                   <div className="text-white/50 text-xs">XP Earned</div>
                   <div className="text-white/70 text-xs font-medium">{percentage}% of max</div>
                 </div>
                 <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
-                  <div className="text-3xl font-black text-purple-300 mb-1">
+                  <div className="text-3xl font-black text-teak-200 mb-1">
                     {level.emoji}
                   </div>
                   <div className="text-white/50 text-xs">Final Rank</div>
                   <div className="text-white/70 text-xs font-medium">{level.name}</div>
                 </div>
                 <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
-                  <div className="text-3xl font-black text-green-400 mb-1">
+                  <div className="text-3xl font-black text-teak-400 mb-1">
                     {completedExercises}/{totalExercises}
                   </div>
                   <div className="text-white/50 text-xs">Exercises</div>
@@ -195,7 +195,7 @@ export default function CertificatePage() {
                         key={ch.id}
                         className={`px-3 py-1.5 rounded-full text-xs font-bold border ${
                           done
-                            ? 'border-green-400/50 bg-green-500/10 text-green-300'
+                            ? 'border-teak-400/60 bg-teak-600/20 text-teak-200'
                             : 'border-white/10 bg-white/5 text-white/30'
                         }`}
                       >
@@ -212,9 +212,9 @@ export default function CertificatePage() {
                   <div className="text-white/40 text-xs mb-1">Issued on</div>
                   <div className="text-white font-semibold">{completionDate}</div>
                 </div>
-                <div className="w-20 h-20 rounded-full border-4 border-yellow-400/40 bg-yellow-400/10 flex flex-col items-center justify-center">
+                <div className="w-20 h-20 rounded-full border-4 border-teak-400/40 bg-teak-500/20 flex flex-col items-center justify-center">
                   <span className="text-2xl">🎓</span>
-                  <span className="text-yellow-400 text-xs font-black">CERT</span>
+                  <span className="text-teak-300 text-xs font-black">CERT</span>
                 </div>
                 <div className="text-right">
                   <div className="text-white/40 text-xs mb-1">Powered by</div>
@@ -226,18 +226,18 @@ export default function CertificatePage() {
         </div>
 
         {/* Share / actions */}
-        <div className="mt-8 text-center text-white/60 text-sm">
+        <div className="mt-8 text-center text-stone-500 text-sm">
           <p>Screenshot or download your certificate to share your achievement!</p>
           <div className="flex justify-center gap-4 mt-4">
             <Link
               href="/leaderboard"
-              className="px-6 py-3 bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-300 rounded-xl font-medium transition-colors"
+              className="px-6 py-3 bg-teak-50 hover:bg-teak-100 text-teak-700 border border-teak-200 rounded-md font-medium transition-colors"
             >
               View Leaderboard 🏆
             </Link>
             <Link
               href="/tutorial"
-              className="px-6 py-3 bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 rounded-xl font-medium transition-colors"
+              className="px-6 py-3 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-md font-medium transition-colors"
             >
               Review Chapters 📚
             </Link>
