@@ -3,13 +3,17 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useProgress } from './ProgressProvider';
+import { useTutorialMode } from './ModeProvider';
 import XPBar from './XPBar';
 import { CHAPTERS } from '@/lib/chapters';
+import { GENERIC_CHAPTERS } from '@/lib/genericChapters';
 import ApiKeyModal from './ApiKeyModal';
+import ModeToggle from './ModeToggle';
 import { hasConfiguredProvider, getActiveProvider } from '@/lib/providerStore';
 
 export default function Navbar() {
   const { progress } = useProgress();
+  const { mode } = useTutorialMode();
   const [showApiKey, setShowApiKey] = useState(false);
   const [hasKey, setHasKey] = useState(false);
   const [activeProvider, setActiveProvider] = useState<'groq' | 'anthropic'>('groq');
@@ -19,7 +23,8 @@ export default function Navbar() {
     setActiveProvider(getActiveProvider());
   }, [showApiKey]);
 
-  const totalExercises = CHAPTERS.reduce((sum, ch) => sum + ch.exercises.length, 0);
+  const chapters = mode === 'generic' ? GENERIC_CHAPTERS : CHAPTERS;
+  const totalExercises = chapters.reduce((sum, ch) => sum + ch.exercises.length, 0);
   const completedExercises = progress
     ? Object.values(progress.completedExercises).filter((e) => e.passed).length
     : 0;
@@ -43,7 +48,7 @@ export default function Navbar() {
             </div>
           </Link>
 
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-4">
             <Link
               href="/tutorial"
               className="text-stone-500 hover:text-stone-900 transition-colors text-sm font-medium"
@@ -56,6 +61,8 @@ export default function Navbar() {
             >
               Leaderboard
             </Link>
+
+            <ModeToggle />
 
             <button
               onClick={() => setShowApiKey(true)}

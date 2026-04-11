@@ -2,16 +2,21 @@
 
 import Link from 'next/link';
 import { useProgress } from '@/components/ProgressProvider';
+import { useTutorialMode } from '@/components/ModeProvider';
 import { CHAPTERS } from '@/lib/chapters';
+import { GENERIC_CHAPTERS } from '@/lib/genericChapters';
 import { getLevelFromXP } from '@/lib/types';
 import XPBar from '@/components/XPBar';
 
 export default function TutorialPage() {
   const { progress } = useProgress();
+  const { mode } = useTutorialMode();
+
+  const chapters = mode === 'generic' ? GENERIC_CHAPTERS : CHAPTERS;
 
   const getChapterProgress = (chapterId: string) => {
     if (!progress) return { completed: 0, total: 0, xpEarned: 0 };
-    const chapter = CHAPTERS.find((c) => c.id === chapterId);
+    const chapter = chapters.find((c) => c.id === chapterId);
     if (!chapter) return { completed: 0, total: 0, xpEarned: 0 };
 
     const completed = chapter.exercises.filter(
@@ -26,7 +31,7 @@ export default function TutorialPage() {
 
   const isChapterUnlocked = (index: number) => {
     if (index === 0) return true;
-    const prevChapter = CHAPTERS[index - 1];
+    const prevChapter = chapters[index - 1];
     const prevProgress = getChapterProgress(prevChapter.id);
     return prevProgress.completed === prevProgress.total && prevProgress.total > 0;
   };
@@ -38,12 +43,25 @@ export default function TutorialPage() {
       {/* Header */}
       <div className="border-b border-stone-200 pt-10 pb-8 px-6">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl font-semibold text-stone-900 tracking-tight mb-1">
-            Course Chapters
-          </h1>
-          <p className="text-stone-500 text-sm mb-6">
+          <div className="flex items-center gap-3 mb-1">
+            <h1 className="text-3xl font-semibold text-stone-900 tracking-tight">
+              Course Chapters
+            </h1>
+            {mode === 'generic' && (
+              <span className="text-xs px-2 py-1 rounded-md border border-blue-200 bg-blue-50 text-blue-700 font-medium">
+                Generic Mode
+              </span>
+            )}
+          </div>
+          <p className="text-stone-500 text-sm mb-1">
             Complete exercises to earn XP and unlock the next chapter
           </p>
+          {mode === 'generic' && (
+            <p className="text-stone-400 text-xs mb-5">
+              Based on the dair-ai Prompt Engineering Guide — model-agnostic techniques
+            </p>
+          )}
+          {mode !== 'generic' && <div className="mb-5" />}
           {progress ? (
             <div className="max-w-sm">
               <XPBar xp={totalXP} />
@@ -59,7 +77,7 @@ export default function TutorialPage() {
       {/* Chapters */}
       <div className="max-w-3xl mx-auto px-6 py-8">
         <div className="space-y-3">
-          {CHAPTERS.map((chapter, index) => {
+          {chapters.map((chapter, index) => {
             const chProgress = getChapterProgress(chapter.id);
             const unlocked = isChapterUnlocked(index);
             const completed = chProgress.completed === chProgress.total && chProgress.total > 0;
@@ -148,7 +166,7 @@ export default function TutorialPage() {
         </div>
 
         {/* Certificate CTA */}
-        {progress && progress.completedChapters.length === CHAPTERS.length && (
+        {progress && progress.completedChapters.length === chapters.length && (
           <div className="mt-8 border border-teak-300 bg-teak-50 rounded-lg p-6 text-center">
             <h3 className="text-stone-900 font-semibold text-lg mb-2">All Chapters Complete</h3>
             <p className="text-stone-600 text-sm mb-4">You&apos;ve mastered prompt engineering. Claim your certificate.</p>

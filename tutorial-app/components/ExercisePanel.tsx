@@ -4,8 +4,11 @@ import { useState, useCallback } from 'react';
 import { Exercise } from '@/lib/types';
 import { calculateXPForExercise } from '@/lib/store';
 import { TEST_INPUTS } from '@/lib/chapters';
+import { GENERIC_TEST_INPUTS } from '@/lib/genericChapters';
 import XPToast from './XPToast';
 import { getActiveProvider, getActiveApiKey } from '@/lib/providerStore';
+
+const ALL_TEST_INPUTS = { ...TEST_INPUTS, ...GENERIC_TEST_INPUTS };
 
 interface ExercisePanelProps {
   exercise: Exercise;
@@ -16,7 +19,7 @@ interface ExercisePanelProps {
 }
 
 function substituteVariables(prompt: string, exerciseId: string): string {
-  const inputs = TEST_INPUTS[exerciseId];
+  const inputs = ALL_TEST_INPUTS[exerciseId];
   if (!inputs) return prompt;
   let result = prompt;
   for (const [key, value] of Object.entries(inputs)) {

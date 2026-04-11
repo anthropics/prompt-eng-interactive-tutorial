@@ -5,9 +5,11 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import { useProgress } from '@/components/ProgressProvider';
+import { useTutorialMode } from '@/components/ModeProvider';
 import { CHAPTERS } from '@/lib/chapters';
+import { GENERIC_CHAPTERS } from '@/lib/genericChapters';
 import ExercisePanel from '@/components/ExercisePanel';
-import { recordExerciseResult, markChapterComplete } from '@/lib/store';
+import { recordExerciseResult, markChapterComplete, recordGenericExerciseResult, markGenericChapterComplete } from '@/lib/store';
 import XPToast from '@/components/XPToast';
 
 interface PageProps {
@@ -18,10 +20,15 @@ export default function ChapterPage({ params }: PageProps) {
   const { chapterId } = use(params);
   const router = useRouter();
   const { progress, refreshProgress } = useProgress();
+  const { mode } = useTutorialMode();
 
-  const chapterIndex = CHAPTERS.findIndex((c) => c.id === chapterId);
-  const chapter = CHAPTERS[chapterIndex];
-  const nextChapter = CHAPTERS[chapterIndex + 1];
+  const chapters = mode === 'generic' ? GENERIC_CHAPTERS : CHAPTERS;
+  const chapterIndex = chapters.findIndex((c) => c.id === chapterId);
+  const chapter = chapters[chapterIndex];
+  const nextChapter = chapters[chapterIndex + 1];
+
+  const storeRecord = mode === 'generic' ? recordGenericExerciseResult : recordExerciseResult;
+  const storeMarkComplete = mode === 'generic' ? markGenericChapterComplete : markChapterComplete;
 
   const [activeTab, setActiveTab] = useState<'lesson' | 'exercises'>('lesson');
   const [chapterBonusToast, setChapterBonusToast] = useState<{ xp: number; message: string } | null>(null);
@@ -53,7 +60,7 @@ export default function ChapterPage({ params }: PageProps) {
       const existing = progress.completedExercises[exerciseId];
       if (existing?.passed && existing.xpEarned >= xpEarned) return;
 
-      const result = recordExerciseResult(exerciseId, {
+      const result = storeRecord(exerciseId, {
         passed: true,
         xpEarned,
         attempts: 1,
@@ -69,12 +76,12 @@ export default function ChapterPage({ params }: PageProps) {
       ).length;
 
       if (updatedCompleted === chapter.exercises.length && !result?.completedChapters.includes(chapter.id)) {
-        markChapterComplete(chapter.id, chapter.xpBonus);
+        storeMarkComplete(chapter.id, chapter.xpBonus);
         refreshProgress();
         setChapterBonusToast({ xp: chapter.xpBonus, message: `Chapter ${chapter.number} complete!` });
       }
     },
-    [progress, chapter, refreshProgress]
+    [progress, chapter, refreshProgress, storeRecord, storeMarkComplete]
   );
 
   return (
