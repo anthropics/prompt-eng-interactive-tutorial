@@ -1,5 +1,5 @@
-awscli==1.32.74
-boto3==1.34.74
-botocore==1.34.74
+awscli==1.45.28
+boto3==1.43.28
+botocore==1.43.28
 anthropic==0.21.3
 pickleshare==0.7.5
