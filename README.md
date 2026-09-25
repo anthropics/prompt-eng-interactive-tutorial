@@ -1,5 +1,21 @@
 # Welcome to Anthropic's Prompt Engineering Interactive Tutorial
 
+## About this fork
+
+This is a fork of [anthropics/prompt-eng-interactive-tutorial](https://github.com/anthropics/prompt-eng-interactive-tutorial), adapted to run **without a billed Anthropic Console API key**. The original notebooks call the Anthropic Messages API directly with `client.messages.create(...)`, which requires an API key tied to Console billing. In this fork, every notebook's `get_completion()` instead shells out to the [Claude Code](https://docs.claude.com/en/docs/claude-code/overview) CLI (`claude -p ...`), authenticating with whatever Claude.ai account/subscription you're already logged into.
+
+**Setup:**
+1. Install Claude Code and log in once (`claude` in a terminal, then `/login` if prompted).
+2. Open `Anthropic 1P/00_Tutorial_How-To.ipynb` and follow the setup cells there.
+
+**Known limitations of this approach**, documented in [`Anthropic 1P/claude_cli.py`](Anthropic%201P/claude_cli.py):
+- No `temperature` or `max_tokens` control (the CLI doesn't expose them), so responses are somewhat less deterministic than the original tutorial's `temperature=0` examples.
+- No true assistant-turn "prefill" (the CLI takes a single prompt, not a raw messages array) — it's approximated by instructing Claude to continue from the given text and stripping a leading repeat.
+- No native `stop_sequences` — approximated by generating the full reply and truncating client-side, used in the Chapter 10.2 tool-use appendix.
+- Multi-turn conversations (Chapter 10.1 chaining, 10.2 tool use) are flattened into a plain-text transcript per call rather than using persistent API conversation state.
+
+The `AmazonBedrock/` folder is unchanged from upstream and still requires AWS credentials/billing.
+
 ## Course introduction and goals
 
 This course is intended to provide you with a comprehensive step-by-step understanding of how to engineer optimal prompts within Claude.
